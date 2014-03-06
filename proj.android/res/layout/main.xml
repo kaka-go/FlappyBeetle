@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:baiduadsdk="http://schemas.android.com/apk/res/com.edw.flappybeetle"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <org.cocos2dx.lib.Cocos2dxGLSurfaceView
+        android:id="@+id/game_gl_surfaceview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/ADLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <com.baidu.mobads.AdView
+            android:id="@+id/adView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            baiduadsdk:adId=""
+            baiduadsdk:adSize="0" />
+        <!-- 注： baiduadsdk:adId可以指定为"",表示默认广告位 -->
+    </RelativeLayout>
+
+</FrameLayout>

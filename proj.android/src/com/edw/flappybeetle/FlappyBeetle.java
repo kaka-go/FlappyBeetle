@@ -20,29 +20,45 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-****************************************************************************/
+ ****************************************************************************/
 package com.edw.flappybeetle;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.cocos2dx.lib.Cocos2dxRenderer;
 
 import android.os.Bundle;
 
-public class FlappyBeetle extends Cocos2dxActivity{
-	
-    protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);	
+import com.baidu.mobads.AdView;
+
+public class FlappyBeetle extends Cocos2dxActivity {
+
+	private AdView mAdView;
+	private Cocos2dxGLSurfaceView mGLView;
+
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.main);
+		mGLView = (Cocos2dxGLSurfaceView) findViewById(R.id.game_gl_surfaceview);
+
+		mGLView.setEGLContextClientVersion(2);
+		mGLView.setCocos2dxRenderer(new Cocos2dxRenderer());
+
+		mAdView = (AdView) this.findViewById(R.id.adView);
+		mAdView.setVisibility(AdView.VISIBLE);
+
 	}
 
-    public Cocos2dxGLSurfaceView onCreateView() {
-    	Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
-    	// FlappyBeetle should create stencil buffer
-    	glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
-    	
-    	return glSurfaceView;
-    }
+	public Cocos2dxGLSurfaceView onCreateView() {
+		Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
+		// FlappyBeetle should create stencil buffer
+		glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
-    static {
-        System.loadLibrary("cocos2dcpp");
-    }     
+		return glSurfaceView;
+	}
+
+	static {
+		System.loadLibrary("cocos2dcpp");
+	}
 }
