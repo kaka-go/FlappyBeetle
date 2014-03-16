@@ -35,14 +35,11 @@ public:
 
 	bool intersectsPoly(CCPoint* poly1, int poly1Num, CCPoint* poly2, int poly2Num);
 
-	//给文字添加描边  
-    CCLabelTTF* textAddOutline(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float lineWidth);  
-      
-    //添加阴影  
-    CCLabelTTF* textAddShadow(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float shadowSize,float shadowOpacity);  
-      
-    //既添加描边又添加阴影  
-    CCLabelTTF* textAddOutlineAndShadow(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float lineWidth,float shadowSize,float shadowOpacity);  
+    CCLabelTTF* textAddOutline(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float lineWidth);
+    
+    CCLabelTTF* textAddShadow(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float shadowSize,float shadowOpacity);
+    
+    CCLabelTTF* textAddOutlineAndShadow(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float lineWidth,float shadowSize,float shadowOpacity);
 
 private:
 	CCSprite *sky;

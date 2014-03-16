@@ -74,7 +74,9 @@ bool HelloWorld::init()
 	pCloseItem->setPosition(ccp(origin.x + pCloseItem->getContentSize().width/2 ,
                                 origin.y + visibleSize.height - pCloseItem->getContentSize().height/2));
 
-    CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
+    CCMenu* pMenu = CCMenu::create();
+    // !
+    // pMenu->addChild(pCloseItem);
     pMenu->setPosition(CCPointZero);
     this->addChild(pMenu, -2);
 
@@ -84,8 +86,11 @@ bool HelloWorld::init()
                                         this,
                                         menu_selector(HelloWorld::menuReplayCallback));
     
-	pReplayItem->setPosition(ccp(origin.x + visibleSize.width - pReplayItem->getContentSize().width/2 ,
+    pReplayItem->setPosition(ccp(origin.x + pReplayItem->getContentSize().width/2 ,
 								 origin.y + visibleSize.height - pReplayItem->getContentSize().height/2));
+
+//	pReplayItem->setPosition(ccp(origin.x + visibleSize.width - pReplayItem->getContentSize().width/2 ,
+//								 origin.y + visibleSize.height - pReplayItem->getContentSize().height/2));
 	pMenu->addChild(pReplayItem);
 
 
@@ -423,107 +428,106 @@ bool HelloWorld::intersectsPoly(CCPoint* poly1, int poly1Num, CCPoint* poly2, in
 	}
 	return false;
 }
-
-/* 
-    ÖÆ×÷ÎÄ×ÖÃè±ßÐ§¹ûÊÇºÜ¼òµ¥µÄ£¬ÎÒÃÇÐ´ºÃÒ»¶ÎÎÄ×ÖÖ®ºó£¬Ò²¾ÍÊÇ´´½¨³öÒ»¸öCCLabelTTF£¬³ÆÖ®ÎªÕýÎÄCCLabelTTF¡£È»ºóÔÙ´´½¨³ö4¸öCCLabelTTF£¬ÑÕÉ«ÎªºÚÉ«£¬´óÐ¡Í¬ÕýÎÄCCLabelTTFÏàÍ¬£¬ 
-    ³ÆÖ®ÎªÃè±ßCCLabelTTF¡£Ëµµ½Õâ´ó¼Ò¿ÉÄÜÒÑ¾­Ã÷°×ÁË£¬Ã»´í£¬¾ÍÊÇ°Ñ4¸öÃè±ßCCLabelTTF·ÅÓÚÕýÎÄCCLabelTTFµÄÏÂÃæ£¬·Ö±ðÓÚ×óÓÒÉÏÏÂÓëÕýÎÄCCLabelTTF´í¿ª£¬ÕâÑùÃè±ßÐ§¹û¾ÍÊµÏÖÀ²¡£¡£ 
+/*
+ åˆ¶ä½œæ–‡å­—æè¾¹æ•ˆæžœæ˜¯å¾ˆç®€å•çš„ï¼Œæˆ‘ä»¬å†™å¥½ä¸€æ®µæ–‡å­—ä¹‹åŽï¼Œä¹Ÿå°±æ˜¯åˆ›å»ºå‡ºä¸€ä¸ªCCLabelTTFï¼Œç§°ä¹‹ä¸ºæ­£æ–‡CCLabelTTFã€‚ç„¶åŽå†åˆ›å»ºå‡º4ä¸ªCCLabelTTFï¼Œé¢œè‰²ä¸ºé»‘è‰²ï¼Œå¤§å°åŒæ­£æ–‡CCLabelTTFç›¸åŒï¼Œ
+ ç§°ä¹‹ä¸ºæè¾¹CCLabelTTFã€‚è¯´åˆ°è¿™å¤§å®¶å¯èƒ½å·²ç»æ˜Žç™½äº†ï¼Œæ²¡é”™ï¼Œå°±æ˜¯æŠŠ4ä¸ªæè¾¹CCLabelTTFæ”¾äºŽæ­£æ–‡CCLabelTTFçš„ä¸‹é¢ï¼Œåˆ†åˆ«äºŽå·¦å³ä¸Šä¸‹ä¸Žæ­£æ–‡CCLabelTTFé”™å¼€ï¼Œè¿™æ ·æè¾¹æ•ˆæžœå°±å®žçŽ°å•¦ã€‚ã€‚
  
-    *string     ÎÄ±¾ 
-    *fontName   ÎÄ±¾×ÖÌåÀàÐÍ 
-    *fontSize   ÎÄ±¾´óÐ¡ 
-    *color3     ÎÄ±¾ÑÕÉ« 
-    *lineWidth  ËùÃè±ßµÄ¿í¶È 
- */  
-CCLabelTTF* HelloWorld::textAddOutline(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float lineWidth)  
-{  
-    //Ãè±ßCCLabelTTF ×ó  
-    CCLabelTTF* left = CCLabelTTF::create(string, fontName, fontSize);  
-    left->setColor(ccBLACK);  
-      
-    //Ãè±ßCCLabelTTF ÓÒ  
-    CCLabelTTF* right = CCLabelTTF::create(string, fontName, fontSize);  
-    right->setColor(ccBLACK);  
-    right->setPosition(ccp(left->getContentSize().width*0.5+lineWidth*2,left->getContentSize().height*0.5));  
-    left->addChild(right);  
-      
-    //Ãè±ßCCLabelTTF ÉÏ  
-    CCLabelTTF* up = CCLabelTTF::create(string, fontName, fontSize);  
-    up->setColor(ccBLACK);  
-    up->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5+lineWidth));  
-    left->addChild(up);  
-      
-    //Ãè±ßCCLabelTTF ÏÂ  
-    CCLabelTTF* down = CCLabelTTF::create(string, fontName, fontSize);  
-    down->setColor(ccBLACK);  
-    down->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5-lineWidth));  
-    left->addChild(down);  
-      
-    //ÕýÎÄCCLabelTTF  
-    CCLabelTTF* center = CCLabelTTF::create(string, fontName, fontSize);  
-    center->setColor(color3);  
-    center->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5));  
-    left->addChild(center);  
-      
-    return left;  
-}  
-  
-  
-/* 
-    ¸øÎÄ×ÖÌí¼ÓÒõÓ°£¬Ò»¿´¾Í¶®µÄ¡£¡£¡£ 
-    *string         ÎÄ±¾ 
-    *fontName       ÎÄ±¾×ÖÌåÀàÐÍ 
-    *fontSize       ÎÄ±¾´óÐ¡ 
-    *color3         ÎÄ±¾ÑÕÉ« 
-    *shadowSize     ÒõÓ°´óÐ¡ 
-    *shadowOpacity  ÒõÓ°Í¸Ã÷¶È 
-  
- */  
-CCLabelTTF* HelloWorld::textAddShadow(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float shadowSize,float shadowOpacity)  
-{  
-    CCLabelTTF* shadow = CCLabelTTF::create(string, fontName, fontSize);  
-    shadow->setColor(ccBLACK);  
-    shadow->setOpacity(shadowOpacity);  
-      
-    CCLabelTTF* center = CCLabelTTF::create(string, fontName, fontSize);  
-    center->setColor(color3);  
-    center->setPosition(ccp(shadow->getContentSize().width*0.5-shadowSize, shadow->getContentSize().height*0.5+shadowSize));  
-    shadow->addChild(center);  
-      
-    return shadow;  
-}  
-  
-  
-//¼ÈÌí¼ÓÃè±ßÓÖÌí¼ÓÒõÓ°  
-CCLabelTTF* HelloWorld::textAddOutlineAndShadow(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float lineWidth,float shadowSize,float shadowOpacity)  
-{  
-    CCLabelTTF* shadow = CCLabelTTF::create(string, fontName, fontSize);  
-    shadow->setColor(ccBLACK);  
-    shadow->setOpacity(shadowOpacity);  
-      
-    CCLabelTTF* left = CCLabelTTF::create(string, fontName, fontSize);  
-    left->setColor(ccBLACK);  
-    left->setPosition(ccp(shadow->getContentSize().width*0.5-shadowSize, shadow->getContentSize().height*0.5+shadowSize));  
-    shadow->addChild(left);  
-      
-    CCLabelTTF* right = CCLabelTTF::create(string, fontName, fontSize);  
-    right->setColor(ccBLACK);  
-    right->setPosition(ccp(left->getContentSize().width*0.5+lineWidth*2,left->getContentSize().height*0.5));  
-    left->addChild(right);  
-      
-    CCLabelTTF* up = CCLabelTTF::create(string, fontName, fontSize);  
-    up->setColor(ccBLACK);  
-    up->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5+lineWidth));  
-    left->addChild(up);  
-      
-    CCLabelTTF* down = CCLabelTTF::create(string, fontName, fontSize);  
-    down->setColor(ccBLACK);  
-    down->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5-lineWidth));  
-    left->addChild(down);  
-      
-    CCLabelTTF* center = CCLabelTTF::create(string, fontName, fontSize);  
-    center->setColor(color3);  
-    center->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5));  
-    left->addChild(center);  
-      
-    return shadow;  
-} 
+ *string     æ–‡æœ¬
+ *fontName   æ–‡æœ¬å­—ä½“ç±»åž‹
+ *fontSize   æ–‡æœ¬å¤§å°
+ *color3     æ–‡æœ¬é¢œè‰²
+ *lineWidth  æ‰€æè¾¹çš„å®½åº¦
+ */
+CCLabelTTF* HelloWorld::textAddOutline(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float lineWidth)
+{
+    //æè¾¹CCLabelTTF å·¦
+    CCLabelTTF* left = CCLabelTTF::create(string, fontName, fontSize);
+    left->setColor(ccBLACK);
+    
+    //æè¾¹CCLabelTTF å³
+    CCLabelTTF* right = CCLabelTTF::create(string, fontName, fontSize);
+    right->setColor(ccBLACK);
+    right->setPosition(ccp(left->getContentSize().width*0.5+lineWidth*2,left->getContentSize().height*0.5));
+    left->addChild(right);
+    
+    //æè¾¹CCLabelTTF ä¸Š
+    CCLabelTTF* up = CCLabelTTF::create(string, fontName, fontSize);
+    up->setColor(ccBLACK);
+    up->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5+lineWidth));
+    left->addChild(up);
+    
+    //æè¾¹CCLabelTTF ä¸‹
+    CCLabelTTF* down = CCLabelTTF::create(string, fontName, fontSize);
+    down->setColor(ccBLACK);
+    down->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5-lineWidth));
+    left->addChild(down);
+    
+    //æ­£æ–‡CCLabelTTF
+    CCLabelTTF* center = CCLabelTTF::create(string, fontName, fontSize);
+    center->setColor(color3);
+    center->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5));
+    left->addChild(center);
+    
+    return left;
+}
+
+
+/*
+ ç»™æ–‡å­—æ·»åŠ é˜´å½±ï¼Œä¸€çœ‹å°±æ‡‚çš„ã€‚ã€‚ã€‚
+ *string         æ–‡æœ¬
+ *fontName       æ–‡æœ¬å­—ä½“ç±»åž‹
+ *fontSize       æ–‡æœ¬å¤§å°
+ *color3         æ–‡æœ¬é¢œè‰²
+ *shadowSize     é˜´å½±å¤§å°
+ *shadowOpacity  é˜´å½±é€æ˜Žåº¦
+ 
+ */
+CCLabelTTF* HelloWorld::textAddShadow(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float shadowSize,float shadowOpacity)
+{
+    CCLabelTTF* shadow = CCLabelTTF::create(string, fontName, fontSize);
+    shadow->setColor(ccBLACK);
+    shadow->setOpacity(shadowOpacity);
+    
+    CCLabelTTF* center = CCLabelTTF::create(string, fontName, fontSize);
+    center->setColor(color3);
+    center->setPosition(ccp(shadow->getContentSize().width*0.5-shadowSize, shadow->getContentSize().height*0.5+shadowSize));
+    shadow->addChild(center);
+    
+    return shadow;
+}
+
+
+//æ—¢æ·»åŠ æè¾¹åˆæ·»åŠ é˜´å½±
+CCLabelTTF* HelloWorld::textAddOutlineAndShadow(const char* string, const char* fontName, float fontSize,const ccColor3B &color3,float lineWidth,float shadowSize,float shadowOpacity)
+{
+    CCLabelTTF* shadow = CCLabelTTF::create(string, fontName, fontSize);
+    shadow->setColor(ccBLACK);
+    shadow->setOpacity(shadowOpacity);
+    
+    CCLabelTTF* left = CCLabelTTF::create(string, fontName, fontSize);
+    left->setColor(ccBLACK);
+    left->setPosition(ccp(shadow->getContentSize().width*0.5-shadowSize, shadow->getContentSize().height*0.5+shadowSize));
+    shadow->addChild(left);
+    
+    CCLabelTTF* right = CCLabelTTF::create(string, fontName, fontSize);
+    right->setColor(ccBLACK);
+    right->setPosition(ccp(left->getContentSize().width*0.5+lineWidth*2,left->getContentSize().height*0.5));
+    left->addChild(right);
+    
+    CCLabelTTF* up = CCLabelTTF::create(string, fontName, fontSize);
+    up->setColor(ccBLACK);
+    up->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5+lineWidth));
+    left->addChild(up);
+    
+    CCLabelTTF* down = CCLabelTTF::create(string, fontName, fontSize);
+    down->setColor(ccBLACK);
+    down->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5-lineWidth));
+    left->addChild(down);
+    
+    CCLabelTTF* center = CCLabelTTF::create(string, fontName, fontSize);
+    center->setColor(color3);
+    center->setPosition(ccp(left->getContentSize().width*0.5+lineWidth, left->getContentSize().height*0.5));
+    left->addChild(center);
+    
+    return shadow;
+}

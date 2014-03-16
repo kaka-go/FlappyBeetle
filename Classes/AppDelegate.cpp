@@ -4,7 +4,7 @@
 USING_NS_CC;
 
 float W = 480;
-float H = 800;
+float H = 720;
 
 AppDelegate::AppDelegate() {
 
