@@ -6,3 +6,4 @@ Game same as Flappy Bird, by cocos2d-x
 ### Download
 * [Google Play](https://play.google.com/store/apps/details?id=com.edw.flappybeetle)
 * [Baidu](http://as.baidu.com/a/item?docid=5944614&pre=web_am_se)
+* [iTunes](https://itunes.apple.com/cn/app/beetle-flappy/id900088570?l=en&mt=8)
