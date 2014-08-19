@@ -62,8 +62,8 @@ static AppDelegate s_sharedApplication;
     CGPoint origin = CGPointMake(0, screenBounds.size.height - GAD_SIZE_320x50.height);
     bannerView_ = [[[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner origin:origin] autorelease];
     
-    bannerView_.adUnitID = @"a15322f50ca0218";
-    [viewController.view addSubview: bannerView_];
+    bannerView_.adUnitID = @"ca-app-pub-7033238829347378/7113349841";
+//    [viewController.view addSubview: bannerView_];
     [bannerView_ setRootViewController:viewController];
     
     GADRequest *request = [GADRequest request];

@@ -18,6 +18,7 @@ public:
     // a selector callback
     void menuCloseCallback(CCObject* pSender);
 	void menuReplayCallback(CCObject* pSender);
+    void leaderBoardCallback(CCObject* pSender);
     
     // implement the "static node()" method manually
     CREATE_FUNC(HelloWorld);
