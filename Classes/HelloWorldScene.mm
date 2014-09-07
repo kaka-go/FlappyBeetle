@@ -19,6 +19,7 @@ USING_NS_CC;
 float cloudSpeedX = CLOUD_SPEED_X;
 float grassSpeedX = GRASS_SPEED_X;
 
+float cactusBaseY = 250;
 float cactusSpeedX = CACTUS_SPEED_X;
 float cactusBlank = CACTUS_BLANK;
 float cactusGap = 150;
@@ -40,6 +41,10 @@ int bestScore = 0;
 bool notStart = true;
 bool isOver = false;
 bool isBest = false;
+
+float randCactusY(){
+    return cactusBaseY + 250 *CCRANDOM_0_1();
+}
 
 CCScene* HelloWorld::scene()
 {
@@ -183,17 +188,17 @@ bool HelloWorld::init()
 	for(int i=0; i<cactusNum; i++){
 		scored[i] = false;
 
-		float cactusY = 300 + 300 *CCRANDOM_0_1();
+		float cactusY = randCactusY();
 		float cactusX = visibleSize.width + cactusBlank*i + cactusWidth;
 		cactusDown[i] = CCSprite::create("cactusDown.png");
 		cactusDown[i]->setAnchorPoint(ccp(0.5, 1));
 		cactusDown[i]->setPosition(ccp(origin.x + cactusX, origin.y + cactusY));
-		this->addChild(cactusDown[i], -7);
+		this->addChild(cactusDown[i], -8);
 
 		cactusUp[i] = CCSprite::create("cactusUp.png");
 		cactusUp[i]->setAnchorPoint(ccp(0.5, 0));
 		cactusUp[i]->setPosition(ccp(origin.x + cactusX, origin.y + cactusY + cactusGap));
-		this->addChild(cactusUp[i], -7);
+		this->addChild(cactusUp[i], -8);
 	}
 
 	cactusDownPoly[0] = ccp(7, 0);
@@ -212,6 +217,16 @@ bool HelloWorld::init()
 	cactusUpPoly[5] = ccp(106, 45);
 	cactusUpPoly[6] = ccp(108, 450);
 
+    cactusDownBest = CCSprite::create("cactusDownLight.png");
+    cactusDownBest->setAnchorPoint(ccp(0.5, 1));
+	cactusDownBest->setVisible(false);
+	this->addChild(cactusDownBest, -7);
+    
+    cactusUpBest = CCSprite::create("cactusUpLight.png");
+    cactusUpBest->setAnchorPoint(ccp(0.5, 0));
+	cactusUpBest->setVisible(false);
+	this->addChild(cactusUpBest, -7);
+    
 	this->schedule(schedule_selector(HelloWorld::gameLogic));
 	this->setTouchEnabled(true);
 
@@ -267,11 +282,14 @@ void HelloWorld::gameReset(){
 	beetle->setRotation(0);
 	for(int i=0; i<cactusNum; i++){
 		scored[i] = false;
-		float cactusY = 300 + 300 *CCRANDOM_0_1();
+		float cactusY = randCactusY();
 		float cactusX = visibleSize.width + cactusBlank*i + cactusWidth;
 		cactusDown[i]->setPosition(ccp(origin.x + cactusX, origin.y + cactusY));
 		cactusUp[i]->setPosition(ccp(origin.x + cactusX, origin.y + cactusY + cactusGap));
 	}
+    
+    cactusDownBest->setVisible(false);
+    cactusUpBest->setVisible(false);
 }
 
 void HelloWorld::gameOver()
@@ -337,15 +355,30 @@ void HelloWorld::gameLogic(float dt)
 			scored[i] = false;
 			cactusX = -cactusWidth/2 + cactusBlank * 3;
 			
-			float cactusY = 300 + 300 *CCRANDOM_0_1();
+			float cactusY = randCactusY();
 			cactusDown[i]->setPositionY(cactusY);
 			cactusUp[i]->setPositionY(cactusY + cactusGap);
 		}
-
+        
 		cactusDown[i]->setPositionX(cactusX);
 		cactusUp[i]->setPositionX(cactusX);
 	}
 
+    // highlight the best cactus
+    int deltaScore = bestScore - score;
+    if(deltaScore >= -1 && deltaScore <= 2){
+        if(cactusDown[(bestScore+2)%3]->getPositionX() > 480){
+            cactusDownBest->setVisible(true);
+            cactusUpBest->setVisible(true);
+        }
+        if(deltaScore == -1){
+            cactusDownBest->setVisible(false);
+            cactusUpBest->setVisible(false);
+        }
+        cactusDownBest->setPosition(cactusDown[(bestScore+2)%3]->getPosition());
+        cactusUpBest->setPosition(cactusUp[(bestScore+2)%3]->getPosition());
+    }
+    
 	// Collision detection
 	CCPoint beetleVertices[BEETLE_POLY_NUM];
 	for(int i=0; i<BEETLE_POLY_NUM; i++){

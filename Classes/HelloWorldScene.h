@@ -46,10 +46,13 @@ private:
 	CCSprite *sky;
 	CCSprite *cloud;
 	CCSprite *beetle;
-	CCSprite *grass;
+    CCSprite *grass;
+    CCSprite *cactusDownBest;
+    CCSprite *cactusUpBest;
+    CCSprite *finger;
 	CCSprite *cactusDown[3];
 	CCSprite *cactusUp[3];
-	CCSprite *finger;
+    
 	CCLabelTTF *scoreLabel;
 	CCLabelTTF *bestScoreLabel;
 	bool scored[3];
